@@ -1,0 +1,70 @@
+<div class="">
+    <div class="container mt-5 mb-3 pt-3 card">
+        <h3 class="text-center">{{textButton}} empleado</h3>
+        <form [formGroup]="empleadoForm" class="row g-3 needs-validation" validate (submit)="enviar()">
+            <div class="mb-1">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" placeholder="nombre" formControlName="nombre"
+                    [ngClass]="{'is-invalid':hasErrors('nombre', 'required'), 
+                        'is-valid':!(hasErrors('nombre', 'required')) && isTouched('nombre')}">
+                @if (hasErrors('nombre', 'required')) {
+                <span class="text-danger">Complete the field</span>
+                }
+            </div>
+            <div class="mb-1">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="name@example.com"
+                    formControlName="email"
+                    [ngClass]="{'is-invalid':hasErrors('email', 'email') || hasErrors('email', 'required'), 
+                        'is-valid':!(hasErrors('email', 'email') || hasErrors('email', 'required')) && isTouched('email')}">
+                @if (hasErrors('email', 'required')) {
+                <span class="text-danger">Complete the field</span>
+                }
+                @if (hasErrors('email', 'email')) {
+                <span class="text-danger">Invalid email format</span>
+                }
+            </div>
+            <div class="mb-1">
+                <label for="fechaNacimiento" class="form-label">Fecha Nacimiento</label>
+                <input type="date" class="form-control" id="fechaNacimiento" placeholder="fecha Nacimiento"
+                    formControlName="fechaNacimiento" [ngClass]="{'is-invalid':hasErrors('fechaNacimiento', 'required'), 
+                        'is-valid':!(hasErrors('fechaNacimiento', 'required')) && isTouched('fechaNacimiento')}">
+                @if (hasErrors('fechaNacimiento', 'required')) {
+                <span class="text-danger">Complete the field</span>
+                }
+            </div>
+            <div class="mb-1">
+                <label for="idEstado" class="form-label">Estado</label>
+                <select class="form-select" aria-label="Default select example" id="idEstado" placeholder="idEstado"
+                    formControlName="idEstado" [ngClass]="{'is-invalid':hasErrors('idEstado', 'required'), 
+                    'is-valid':!(hasErrors('idEstado', 'required')) && isTouched('idEstado')}"
+                    (change)="changeEstado()">
+                    @for (estado of estados; track $index) {
+                    <option value="{{estado.idEstado}}">{{estado.nombre}}</option>
+                    }
+                </select>
+                @if (hasErrors('idEstado', 'required')) {
+                <span class="text-danger">Complete the field</span>
+                }
+            </div>
+            <div class="mb-1">
+                <label for="idMunicipio" class="form-label">Municipio</label>
+                <select class="form-select" aria-label="Default select example" id="idMunicipio" placeholder="idMunicipio"
+                    formControlName="idMunicipio" [ngClass]="{'is-invalid':hasErrors('idMunicipio', 'required'), 
+                    'is-valid':!(hasErrors('idMunicipio', 'required')) && isTouched('idMunicipio')}">
+                    @for (municipio of municipios; track $index) {
+                    <option value="{{municipio.idMunicipio}}">{{municipio.nombre}}</option>
+                    }
+                </select>
+                @if (hasErrors('idMunicipio', 'required')) {
+                <span class="text-danger">Complete the field</span>
+                }
+            </div>
+
+            <div class="mb-3  text-end">
+                <button type="submit" [disabled]="empleadoForm.invalid"
+                    [ngClass]="validacionRegistrar ? 'btn btn-success' : 'btn btn-warning'">{{textButton}}</button>
+            </div>
+        </form>
+    </div>
+</div>
